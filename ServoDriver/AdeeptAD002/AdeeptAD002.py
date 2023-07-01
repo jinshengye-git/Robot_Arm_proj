@@ -8,7 +8,20 @@ class AdeeptAD002_Driver():
         self.degree_0_val = 100
         self.enable_chip(self._bus, self._addr)
         time.sleep(0.5)
-        self.move_to(0, 0)
+        #for i in range(0,6):
+        #    self.move_to(i, 0)
+    
+    def test_ch(self, ch):
+        if ch >= 0:
+            while True:
+                for y in range(80):
+                    self.move_to(ch, y) # set 0, then 45, then 90 as y increments
+                    time.sleep(0.05)
+                time.sleep(2.5) # allow time to move to next channel during testing
+                for z in range (80, -1, -1):
+                    self.move_to(ch, z)
+                    time.sleep(0.05)
+                time.sleep(2.5)
 
     def enable_chip(self,bus=None, addr=None):
         if bus is not None and addr is not None:
