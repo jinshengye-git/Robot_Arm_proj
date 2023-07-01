@@ -1,6 +1,11 @@
 import smbus2, time
 
-class AdeeptAD002_Driver():
+class Servo_Driver():
+    """
+    This is for 0--180 deg micro servo
+    based on Sparkfun Pi Hat driver board.
+    tested on AdeeptAD002 and FS90 9g motor
+    """
     _bus = smbus2.SMBus(1)
     _addr = 0x40
     def __init__(self) -> None:
@@ -8,17 +13,15 @@ class AdeeptAD002_Driver():
         self.degree_0_val = 100
         self.enable_chip(self._bus, self._addr)
         time.sleep(0.5)
-        #for i in range(0,6):
-        #    self.move_to(i, 0)
-    
+
     def test_ch(self, ch):
         if ch >= 0:
             while True:
-                for y in range(80):
+                for y in range(180):
                     self.move_to(ch, y) # set 0, then 45, then 90 as y increments
                     time.sleep(0.05)
                 time.sleep(2.5) # allow time to move to next channel during testing
-                for z in range (80, -1, -1):
+                for z in range (180, -1, -1):
                     self.move_to(ch, z)
                     time.sleep(0.05)
                 time.sleep(2.5)
