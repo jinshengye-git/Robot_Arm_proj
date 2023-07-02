@@ -9,6 +9,8 @@ class Servo_Driver():
     _bus = smbus2.SMBus(1)
     _addr = 0x40
     def __init__(self) -> None:
+        #the degree 180 and 0 val is tested for AdeeptAD002
+        #other servo needs calibration.
         self.degree_180_val = 480
         self.degree_0_val = 100
         self.enable_chip(self._bus, self._addr)
